@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      table.table.table-hover.table-bordered
+        thead
+          tr
+            th 序号
+            th 公司名
+            th 报价
+            th 更改
+            th 删除
+        tbody
+          each item,index in companies
+            tr(class="item-id-#{item._id}")
+              td #{index+1}
+              td #{item.name}
+              td #{item.price}
+              td
+                button.btn.btn-primary(type="button",data-id="#{item._id}")更改
+              td
+                button.btn.btn-danger.del(type="button",data-id="#{item._id}")删除
