@@ -3,6 +3,17 @@ extends ../layout
 block content
   .container
     .row
+      h4.col-md-3 项目名称：#{project.projectName}
+    .row
+      h4.col-md-3 项目名称：#{project.weight}%
+      .col-md-3.col-md-offset-6
+        button.btn.btn-primary#goIndexBtn(style='margin:10px 10px 5px 10px') 返回首页
+        button.btn.btn-info#startCalcBtn(style='margin:10px 10px 5px 10px') 开始计算
+    .row
+      h3.col-md-3 报价清单
+    .row
+      hr
+    .row
       table.table.table-hover.table-bordered
         thead
           tr
@@ -12,12 +23,42 @@ block content
             th 更改
             th 删除
         tbody
-          each item,index in companies
+          each item,index in priceCalls
+            input(class="priceCallId-#{item._id}" type="hidden", name="priceCall[_id]" value="#{item._id}")
+            input(class="priceCallProjectId-#{item._id}" type="hidden", name="priceCall[projectId]" value="#{project._id}")
+            input(class="priceCallCaseZero-#{item._id}" type="hidden", name="priceCall[caseZero]" value="#{item.caseZero}")
+            input(class="priceCallCasePlusTwo-#{item._id}" type="hidden", name="priceCall[casePlusTwo]" value="#{item.casePlusTwo}")
+            input(class="priceCallCaseMinusTwo-#{item._id}" type="hidden", name="priceCall[caseMinusTwo]" value="#{item.caseMinusTwo}")
+            input(class="priceCallCasePlusOne-#{item._id}" type="hidden", name="priceCall[casePlusOne]" value="#{item.casePlusOne}")
+            input(class="priceCallCaseMinusOne-#{item._id}" type="hidden", name="priceCall[caseMinusOne]" value="#{item.caseMinusOne}")
+            input(class="priceCallCompanyName-#{item._id}" type="hidden", name="priceCall[companyName]" value="#{item.companyName}")
+            input(class="priceCallPrice-#{item._id}" type="hidden", name="priceCall[price]" value="#{item.price}")
             tr(class="item-id-#{item._id}")
               td #{index+1}
-              td #{item.name}
+              td #{item.companyName}
               td #{item.price}
-              td
-                button.btn.btn-primary(type="button",data-id="#{item._id}")更改
-              td
-                button.btn.btn-danger.del(type="button",data-id="#{item._id}")删除
+              td: a(onclick="goToEditPriceCall('#{item._id}')") 修改
+              td: a(href="../admin/pricecall/delete/#{item._id}") 删除
+      .row
+        h3.col-md-3 操作面板
+          hr
+      form.form-horizontal#newPriceCallForm(method="post", action="/admin/pricecall/new")
+        input#inputId(type="hidden", name="priceCall[_id]" value="#{priceCall._id}")
+        input#inputProjectId(type="hidden", name="priceCall[projectId]" value="#{project._id}")
+        input#inputCaseZero(type="hidden", name="priceCall[caseZero]" value="#{priceCall.caseZero}")
+        input#inputCasePlusTwo(type="hidden", name="priceCall[casePlusTwo]" value="#{priceCall.casePlusTwo}")
+        input#inputCaseMinusTwo(type="hidden", name="priceCall[caseMinusTwo]" value="#{priceCall.caseMinusTwo}")
+        input#inputCasePlusOne(type="hidden", name="priceCall[casePlusOne]" value="#{priceCall.casePlusOne}")
+        input#inputCaseMinusOne(type="hidden", name="priceCall[caseMinusOne]" value="#{priceCall.caseMinusOne}")
+        .form-group
+          label.col-sm-2.control-label 公司名称
+          .col-sm-10
+            input.form-control#inputCompanyName(type="text" name="priceCall[companyName]", value="#{priceCall.companyName}")
+        .form-group
+          label.col-sm-2.control-label 报价
+          .col-sm-10
+            input.form-control#inputPrice(type="text" name="priceCall[price]", value="#{priceCall.price}")
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            button.btn.btn-primary#newPriceCallBtn 录入
+      script(src="/js/detail.js")

@@ -2,8 +2,32 @@ extends ../layout
 block content
   .container
     .row
-      each item in projects
-        .col-md-2
-          .thumbnail
-            a(href="/project/#{item._id}")
-              #{item.name}
+      h3.col-md-3
+      .col-md-1.col-md-offset-6
+        button.btn.btn-primary#goToNewProjectBtn(style='margin:10px 10px 5px 10px') 新增项目
+    .row
+      hr
+    .row
+      table.table.table-hover.table-bordered
+        thead
+          tr
+            th 序号
+            th 项目名
+            th 商务标权重
+            th 创建者
+            th 时间
+            th 查看
+            th 修改
+            th 删除
+        tbody
+          each item,index in projects
+            tr(class="item-id-#{item._id}")
+              td #{index+1}
+              td #{item.projectName}
+              td #{item.weight}
+              td #{item.creator}
+              td #{moment(item.meta.updateAt).format('YYYY-MM-DD HH:mm')}
+              td: a(href="../project/#{item._id}") 查看
+              td: a(href="../admin/project/edit/#{item._id}") 修改
+              td: a(href="../admin/project/delete/#{item._id}") 删除
+      script(src="/js/index.js")

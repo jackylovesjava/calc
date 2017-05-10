@@ -1,6 +1,8 @@
 var mongoose = require('mongoose')
 var ProjectSchema = new mongoose.Schema({
-  name:String,
+  projectName:String,
+  weight:Number,
+  creator:String,
   meta:{
     createAt:{
       type:Date,
@@ -27,12 +29,12 @@ ProjectSchema.statics={
     return this
       .find({})
       .sort('meta.updateAt')
-    exec(cb)
+    .exec(cb)
   },
-  findById:function(cb){
+  findById:function(id,cb){
     return this
       .findOne({_id:id})
-        exec(cb)
+      .exec(cb)
   }
 }
 

@@ -1,0 +1,23 @@
+extends ../layout
+block content
+  .container
+    .row
+      h3.col-sm-3 添加项目
+    .row
+      hr
+    .row
+      form.form-horizontal#newProjectForm(method="post", action="/admin/project/new")
+        input(type="hidden", name="project[_id]" value="#{project._id}")
+        //- 隐藏表单域，用来更新数据，存储ID
+        .form-group
+          label.col-sm-2.control-label(for="inputTitle") 项目名称
+          .col-sm-10
+            input#inputProjectName.form-control(type="text", name="project[projectName]", value="#{project.projectName}" placeholder='请输入项目名')
+        .form-group
+          label.col-sm-2.control-label(for="inputDoctor") 商务标权重
+          .col-sm-10
+            input#inputDoctor.form-control(type="text", name="project[weight]", value="#{project.weight}" placeholder='可输入100内的整数' onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')")
+        .form-group
+          .col-md-offset-9.col-md-1
+          button.btn.btn-primary#newProjectSubmitBtn 录入
+      script(src="/js/new.js")
