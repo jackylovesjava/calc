@@ -4,8 +4,13 @@ block content
   .container
     .row
       h4.col-md-3 项目名称：#{project.projectName}
+      input#projectId(type="hidden",  value="#{project._id}")
+      input#controlPrice(type="hidden",  value="#{project.controlPrice}")
+      input#unCompetePrice(type="hidden",  value="#{project.unCompetePrice}")
     .row
-      h4.col-md-3 项目名称：#{project.weight}%
+      h5.col-md-2 商务标权重: #{project.weight}%
+      h5.col-md-3 招标控制价: #{project.controlPrice} 万元
+      h5.col-md-3 不可竞争价: #{project.unCompetePrice} 万元
       .col-md-3.col-md-offset-6
         button.btn.btn-primary#goIndexBtn(style='margin:10px 10px 5px 10px') 返回首页
         button.btn.btn-info#startCalcBtn(style='margin:10px 10px 5px 10px') 开始计算
@@ -20,6 +25,7 @@ block content
             th 序号
             th 公司名
             th 报价
+            th 下浮率
             th 更改
             th 删除
         tbody
@@ -33,10 +39,12 @@ block content
             input(class="priceCallCaseMinusOne-#{item._id}" type="hidden", name="priceCall[caseMinusOne]" value="#{item.caseMinusOne}")
             input(class="priceCallCompanyName-#{item._id}" type="hidden", name="priceCall[companyName]" value="#{item.companyName}")
             input(class="priceCallPrice-#{item._id}" type="hidden", name="priceCall[price]" value="#{item.price}")
+            input(class="priceCallDiscount-#{item._id}" type="hidden", name="priceCall[discount]" value="#{item.discount}")
             tr(class="item-id-#{item._id}")
               td #{index+1}
               td #{item.companyName}
               td #{item.price}
+              td #{item.discount} %
               td: a(onclick="goToEditPriceCall('#{item._id}')") 修改
               td: a(href="../admin/pricecall/delete/#{item._id}") 删除
       .row
@@ -55,9 +63,13 @@ block content
           .col-sm-10
             input.form-control#inputCompanyName(type="text" name="priceCall[companyName]", value="#{priceCall.companyName}")
         .form-group
-          label.col-sm-2.control-label 报价
+          label.col-sm-2.control-label 下浮率
           .col-sm-10
-            input.form-control#inputPrice(type="text" name="priceCall[price]", value="#{priceCall.price}")
+            input.form-control#inputDiscount(type="text" name="priceCall[discount]", value="#{priceCall.discount}")
+        .form-group
+          label.col-sm-2.control-label 报价（单位：万元）
+          .col-sm-10
+            input.form-control#inputPrice(type="text" name="priceCall[price]", value="#{priceCall.price}" )
         .form-group
           .col-sm-offset-2.col-sm-10
             button.btn.btn-primary#newPriceCallBtn 录入

@@ -3,6 +3,9 @@ var ProjectSchema = new mongoose.Schema({
   projectName:String,
   weight:Number,
   creator:String,
+  controlPrice:Number,
+  unCompetePrice:Number,
+  averageDiscount:Number,
   meta:{
     createAt:{
       type:Date,

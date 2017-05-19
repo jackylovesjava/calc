@@ -13,6 +13,8 @@ block content
           tr
             th 序号
             th 项目名
+            th 招标控制价(万元)
+            th 不可竞争价(万元)
             th 商务标权重
             th 创建者
             th 时间
@@ -24,6 +26,8 @@ block content
             tr(class="item-id-#{item._id}")
               td #{index+1}
               td #{item.projectName}
+              td #{item.controlPrice}
+              td #{item.unCompetePrice}
               td #{item.weight}
               td #{item.creator}
               td #{moment(item.meta.updateAt).format('YYYY-MM-DD HH:mm')}

@@ -1,0 +1,154 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      h4.col-md-3 项目名称：#{project.projectName}
+      input#projectId(type="hidden",  value="#{project._id}")
+    .row
+      h5.col-md-2 商务标权重: #{project.weight}%
+      h5.col-md-3 招标控制价: #{project.controlPrice} 万元
+      h5.col-md-3 不可竞争价: #{project.unCompetePrice} 万元
+      .col-md-4
+        button.btn.btn-success#goToPrint(style='margin:10px 10px 5px 10px') 打印
+        button.btn.btn-primary#goIndexBtn(style='margin:10px 10px 5px 10px') 返回首页
+        button.btn.btn-info#goToDetailBtn(style='margin:10px 10px 5px 10px') 返回详情页
+
+    .row
+      ul#myTab.nav.nav-tabs
+        li.active
+          a(href="#caseZero" data-toggle="tab") 系数为0
+        li.dropdown
+          a(href="#caseMinusOne" data-toggle="tab") 系数为-1
+        li.dropdown
+          a(href="#casePlusOne" data-toggle="tab") 系数为+1
+        li.dropdown
+          a(href="#caseMinusTwo" data-toggle="tab") 系数为-2
+        li.dropdown
+          a(href="#casePlusTwo" data-toggle="tab") 系数为+2
+     .row
+       #myTabContent.tab-content
+         .tab-pane.fade.in.active#caseZero
+           table.table.table-hover.table-bordered
+             thead
+               tr
+                 th 排名
+                 th 公司名
+                 th 报价
+                 th 下浮率
+                 th 商务标得分
+                 th 总分
+             tbody
+               each item,index in caseZeroResults
+                 tr
+                   td #{index+1}
+                   td #{item.companyName}
+                   td #{item.price}
+                   td #{item.discount} %
+                   td #{item.caseZero.toFixed(2)}
+                   td #{((item.caseZero * project.weight/100)+10).toFixed(2)}
+               tr
+                 td 系数为0
+                 td
+                 td #{caseZeroPrice}
+                 td #{caseZeroDiscount}%
+                 td
+                 td
+
+         .tab-pane.fade#caseMinusOne
+           table.table.table-hover.table-bordered
+             thead
+               tr
+                 th 排名
+                 th 公司名
+                 th 报价
+                 th 商务标得分
+                 th 总分
+             tbody
+               each item,index in caseMinusOneResults
+                 tr
+                   td #{index+1}
+                   td #{item.companyName}
+                   td #{item.price}
+                   td #{item.caseMinusOne.toFixed(2)}
+                   td #{((item.caseMinusOne * project.weight/100)+10).toFixed(2)}
+               tr
+                 td 系数为 -1
+                 td
+                 td #{caseMinusOnePrice}
+                 td #{caseMinusOneDiscount}%
+                 td
+                 td
+         .tab-pane.fade#caseMinusTwo
+           table.table.table-hover.table-bordered
+             thead
+               tr
+                 th 排名
+                 th 公司名
+                 th 报价
+                 th 商务标得分
+                 th 总分
+             tbody
+               each item,index in caseMinusTwoResults
+                 tr
+                   td #{index+1}
+                   td #{item.companyName}
+                   td #{item.price}
+                   td #{item.caseMinusTwo.toFixed(2)}
+                   td #{((item.caseMinusTwo * project.weight/100)+10).toFixed(2)}
+               tr
+                 td 系数为 -2
+                 td
+                 td #{caseMinusTwoPrice}
+                 td #{caseMinusTwoDiscount}
+                 td
+                 td
+         .tab-pane.fade#casePlusOne
+           table.table.table-hover.table-bordered
+             thead
+               tr
+                 th 排名
+                 th 公司名
+                 th 报价
+                 th 商务标得分
+                 th 总分
+             tbody
+               each item,index in casePlusOneResults
+                 tr
+                   td #{index+1}
+                   td #{item.companyName}
+                   td #{item.price}
+                   td #{item.casePlusOne.toFixed(2)}
+                   td #{((item.casePlusOne * project.weight/100)+10).toFixed(2)}
+               tr
+                 td 系数为 +1
+                 td
+                 td #{casePlusOnePrice}
+                 td #{casePlusOneDiscount}
+                 td
+                 td
+         .tab-pane.fade#casePlusTwo
+           table.table.table-hover.table-bordered
+             thead
+               tr
+                 th 排名
+                 th 公司名
+                 th 报价
+                 th 商务标得分
+                 th 总分
+             tbody
+               each item,index in casePlusTwoResults
+                 tr
+                   td #{index+1}
+                   td #{item.companyName}
+                   td #{item.price}
+                   td #{item.casePlusTwo.toFixed(2)}
+                   td #{((item.casePlusTwo * project.weight/100)+10).toFixed(2)}
+               tr
+                 td 系数为 +2
+                 td
+                 td #{casePlusTwoPrice}
+                 td #{casePlusTwoDiscount}
+                 td
+                 td
+      script(src="/js/final.js")

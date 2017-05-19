@@ -21,6 +21,29 @@ $(function(){
       $("#newPriceCallForm").submit()
     })
 
+    $("#startCalcBtn").click(function(){
+
+      var projectId = $("#projectId").val();
+      window.location.href="/result/"+projectId;
+
+    })
+
+    $("#goIndexBtn").click(function(){
+
+      window.location.href = "/"
+
+    })
+    $("#inputDiscount").blur(function(){
+      var discount = $("#inputDiscount").val();
+      var controlPrice = $("#controlPrice").val();
+      var unCompetePrice = $("#unCompetePrice").val();
+      var price=(parseFloat((controlPrice-unCompetePrice)*(100-discount)/100)+parseFloat(unCompetePrice)).toFixed(6);
+      if(price>0){
+        $("#inputPrice").val(price);
+      }else {
+        $("#inputPrice").val('');
+      }
+    })
 
 })
 
@@ -34,4 +57,5 @@ function goToEditPriceCall(itemId){
   $("#inputCaseMinusOne").val($(".priceCallCaseMinusOne-"+itemId).val())
   $("#inputCompanyName").val($(".priceCallCompanyName-"+itemId).val())
   $("#inputPrice").val($(".priceCallPrice-"+itemId).val())
+  $("#inputDiscount").val($(".priceCallDiscount-"+itemId).val())
 }

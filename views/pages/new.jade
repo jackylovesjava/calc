@@ -10,13 +10,21 @@ block content
         input(type="hidden", name="project[_id]" value="#{project._id}")
         //- 隐藏表单域，用来更新数据，存储ID
         .form-group
-          label.col-sm-2.control-label(for="inputTitle") 项目名称
+          label.col-sm-2.control-label(for="inputProjectName") 项目名称
           .col-sm-10
             input#inputProjectName.form-control(type="text", name="project[projectName]", value="#{project.projectName}" placeholder='请输入项目名')
         .form-group
-          label.col-sm-2.control-label(for="inputDoctor") 商务标权重
+          label.col-sm-2.control-label(for="inputControlPrice") 招标控制价（单位：万元）
           .col-sm-10
-            input#inputDoctor.form-control(type="text", name="project[weight]", value="#{project.weight}" placeholder='可输入100内的整数' onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')")
+            input#inputControlPrice.form-control(type="text", name="project[controlPrice]", value="#{project.controlPrice}" placeholder='请输入招标控制价' )
+        .form-group
+          label.col-sm-2.control-label(for="inputUnCompetePrice") 不可竞争价（单位：万元）
+          .col-sm-10
+            input#inputUnCompetePrice.form-control(type="text", name="project[unCompetePrice]", value="#{project.unCompetePrice}" placeholder='请输入不可竞争价' )
+        .form-group
+          label.col-sm-2.control-label(for="inputWeight") 商务标权重
+          .col-sm-10
+            input#inputWeight.form-control(type="text", name="project[weight]", value="#{project.weight}" placeholder='可输入100内的整数' )
         .form-group
           .col-md-offset-9.col-md-1
           button.btn.btn-primary#newProjectSubmitBtn 录入
